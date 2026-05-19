@@ -1,0 +1,75 @@
+# .NET/C# specific
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.so
+*.dylib
+*.user
+*.suo
+*.sln.docstates
+.vs/
+.vscode/
+.idea/
+
+# Build outputs
+build/
+dist/
+*.nupkg
+*.nuspec
+
+# Test coverage
+coverage/
+*.coverage
+OpenCover/
+
+# NuGet
+.nuget/
+*.nupkg
+*.nupkg.metadata.json
+.nuget/packages/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Blazor WebAssembly
+wwwroot/service-worker-assets.js
+
+# Entity Framework
+*.db
+*.db-shm
+*.db-wal
+
+# General
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.log
+*.log.*
+.env
+.env.local
+node_modules/
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+ehthumbs.db
+Thumbs.db
+
+# Misc
+temp/
+tmp/
+*.cache

@@ -1,0 +1,90 @@
+@page "/"
+@using RSSFeedReader.Client.Services
+@inject SubscriptionService SubscriptionService
+@inject NavigationManager NavManager
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2>My RSS Feed Subscriptions</h2>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="/add-subscription" class="btn btn-primary">Add New Subscription</a>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Loading subscriptions...</p>
+        </div>
+    }
+    else if (subscriptions.Count == 0)
+    {
+        <div class="alert alert-info">
+            <p>No subscriptions yet. <a href="/add-subscription">Add your first subscription</a>.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Feed URL</th>
+                        <th>Added On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subscription in subscriptions)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@subscription.Url" target="_blank">@subscription.Url</a>
+                            </td>
+                            <td>
+                                @subscription.Id
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-info" disabled>View Feed</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @errorMessage
+        </div>
+    }
+</div>
+
+@code {
+    private List<SubscriptionDto> subscriptions = new();
+    private string errorMessage = string.Empty;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            subscriptions = await SubscriptionService.GetAllSubscriptionsAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading subscriptions: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

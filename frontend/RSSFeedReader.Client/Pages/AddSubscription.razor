@@ -1,0 +1,94 @@
+@page "/add-subscription"
+@using RSSFeedReader.Client.Services
+@inject SubscriptionService SubscriptionService
+@inject NavigationManager NavManager
+
+<div class="container mt-5">
+    <h2>Add RSS Feed Subscription</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <form @onsubmit="HandleAddSubscription">
+                <div class="mb-3">
+                    <label for="feedUrl" class="form-label">Feed URL:</label>
+                    <input 
+                        type="url" 
+                        class="form-control" 
+                        id="feedUrl" 
+                        @bind="feedUrl" 
+                        placeholder="https://example.com/feed"
+                        required />
+                </div>
+
+                <button type="submit" class="btn btn-primary" disabled="@isLoading">
+                    @if (isLoading)
+                    {
+                        <span class="spinner-border spinner-border-sm me-2"></span>
+                        <span>Adding...</span>
+                    }
+                    else
+                    {
+                        <span>Add Subscription</span>
+                    }
+                </button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success mt-3" role="alert">
+                    @successMessage
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @errorMessage
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/" class="btn btn-secondary">Back to Subscriptions</a>
+    </div>
+</div>
+
+@code {
+    private string feedUrl = string.Empty;
+    private string successMessage = string.Empty;
+    private string errorMessage = string.Empty;
+    private bool isLoading = false;
+
+    private async Task HandleAddSubscription()
+    {
+        if (string.IsNullOrWhiteSpace(feedUrl))
+        {
+            errorMessage = "Please enter a feed URL.";
+            return;
+        }
+
+        isLoading = true;
+        successMessage = string.Empty;
+        errorMessage = string.Empty;
+
+        try
+        {
+            await SubscriptionService.AddSubscriptionAsync(feedUrl);
+            successMessage = $"Successfully added subscription for {feedUrl}";
+            feedUrl = string.Empty;
+            
+            // Navigate back to subscriptions list after a short delay
+            await Task.Delay(1500);
+            NavManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error adding subscription: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
