@@ -1,2 +1,3 @@
 # RSSFeedReader-Vitor
-Projeto RSSFeedReader-Vitor
+
+Projeto inicial publicado no GitHub.
