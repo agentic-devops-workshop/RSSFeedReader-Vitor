@@ -1,5 +1,42 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+
+# RSSFeedReader-Vitor Constitution
+
+## Core Principles
+
+### I. Security by Design
+All code must be written with security as a primary concern. Validate all user input, avoid unsafe deserialization, and never store sensitive data in plaintext. Regularly review dependencies for vulnerabilities.
+
+### II. Maintainability First
+Code must be clear, well-documented, and modular. Favor readability over cleverness. All features should be independently testable and easy to refactor. Use consistent naming and structure across backend and frontend.
+
+### III. Code Quality and Testing
+All code must be covered by automated tests (unit and integration where applicable). Follow TDD where practical. Code reviews are mandatory before merging. Linting and formatting tools must be enforced in CI.
+
+### IV. Minimal Viable Product Focus
+Build the simplest version that delivers user value. Defer non-essential features to later phases. MVP must allow adding and listing RSS subscriptions; no feed fetching or persistence in MVP.
+
+### V. Technology Alignment
+Use ASP.NET Core Web API for backend and Blazor WebAssembly for frontend. Store data in memory for MVP. Ensure cross-platform compatibility (Windows, macOS, Linux).
+
+## Additional Constraints
+
+- Only accept valid RSS/Atom URLs for subscriptions in future phases (Extended-MVP).
+- No persistence or network operations in MVP; all data is in-memory and lost on restart.
+- UI must be simple, functional, and accessible.
+- All dependencies must be reviewed for security and license compliance before use.
+
+## Development Workflow & Quality Gates
+
+- All changes must be peer-reviewed before merging.
+- CI must run lint, format, and test checks on every PR.
+- No code is merged without passing all tests and reviews.
+- Amendments to this constitution require stakeholder approval and documentation.
+
+## Governance
+
+This constitution supersedes all other practices for this project. All PRs and reviews must verify compliance. Amendments require documentation, stakeholder approval, and a migration plan if needed.
+
+**Version**: 1.0.0 | **Ratified**: 2026-05-19 | **Last Amended**: 2026-05-19
 
 ## Core Principles
 
